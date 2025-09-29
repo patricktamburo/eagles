@@ -55,7 +55,7 @@ for t in ages :
     eewm = model.get_eEWm(lteff, lAge)
 
     # save the results as a simple .txt file    
-    name = 'iso_'+str(t)+'.txt'
+    name = 'iso_'+str(t)+'v2_0.txt'
     np.savetxt(name, np.column_stack((10**lteff, ewm, eewm)), fmt='%.1f %.1f %.1f', delimiter=' ', header = "Teff(K) EWLim(mA) eEWLi(mA)")
  
     ax.plot(10**lteff, ewm, label='%s Myr' %t)
