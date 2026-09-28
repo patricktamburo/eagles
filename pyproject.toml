@@ -9,3 +9,6 @@ description = "EAGLES: Estimating AGes from Lithium Equivalent widthS (Jeffries 
 
 [tool.setuptools]
 py-modules = ["eagles"]  
+
+[tool.setuptools.package-data]
+eagles = ["data/*.csv"]
