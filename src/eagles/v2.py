@@ -38,17 +38,20 @@ script_name = os.path.basename(__file__)
 
 _grid_cache = None
 
+import importlib.resources as ir
+
 def _load_grid(grid_path=None):
     """
-    Lazily load (and cache) the ANN grid file. Only invoked when the
-    ANN model is actually requested.
-
-    Parameters
-    ----------
-    grid_path : str or Path, optional
-        Explicit path to the grid CSV. If not given, looks for the file
-        bundled alongside this module (via importlib.resources).
+        Lazily load (and cache) the ANN grid file. Only invoked when the
+        ANN model is actually requested.
+    
+        Parameters
+        ----------
+        grid_path : str or Path, optional
+            Explicit path to the grid CSV. If not given, looks for the file
+            bundled alongside this module (via importlib.resources).
     """
+    
     global _grid_cache
     if _grid_cache is not None and grid_path is None:
         return _grid_cache
@@ -56,9 +59,6 @@ def _load_grid(grid_path=None):
     if grid_path is not None:
         df = pd.read_csv(grid_path, delimiter=',')
     else:
-        import importlib.resources as ir
-        # assumes the package is named 'eagles' and the CSV is
-        # bundled at eagles/data/fullgrid_nonmetal.csv 
         ref = ir.files('eagles').joinpath('data/fullgrid_nonmetal.csv')
         with ir.as_file(ref) as path:
             df = pd.read_csv(path, delimiter=',')
@@ -66,7 +66,6 @@ def _load_grid(grid_path=None):
     if grid_path is None:
         _grid_cache = df
     return df
-
 
 ##
 # @brief Help document for this script.  See the main function below.
